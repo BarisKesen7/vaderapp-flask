@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <form method="POST" action="/">
+        <label for="stad">Välja en stad:</label>
+        <select name="stad" id="stad">
+            <option value="Stockholm">Stockholm</option>
+            <option value="Göteborg">Göteborg</option>
+            <option value="Malmö">Malmö</option>
+            <option value="Umeå">Umeå</option>
+            <option value="Kiruna">Kiruna</option>
+        </select>
+        <button type="submit" style="margin-top: 15px; padding: 5px 15px;">Hämta väder</button>
+    </form>
+
+    {% if fel %}
+        <p style="color: red; font-weight: bold; margin-top: 20px;">{{ fel }}</p>
+    {% endif %}
+
+    {% if data %}
+        <div style="margin-top: 30px; padding: 20px; background-color: bisque; border-radius: 9px;">
+            <h2>Nuvarande väder i {{ stad }}</h2>
+            <p><strong>Temperaturen:</strong> {{ data.current.temperature_2m }}</p>
+            <p><strong>Hastigheten av vind:</strong> {{ data.current.wind_speed_10m }} km/h</p>
+        </div>
+    {% endif %}
+{% endblock %}
+
+
+
