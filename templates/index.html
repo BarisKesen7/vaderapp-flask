@@ -24,6 +24,10 @@
             <p><strong>Temperaturen:</strong> {{ data.current.temperature_2m }}</p>
             <p><strong>Hastigheten av vind:</strong> {{ data.current.wind_speed_10m }} km/h</p>
         </div>
+
+        <div style="margin-top: 30px;">
+            {{ diagram | safe }}
+        </div>
     {% endif %}
 {% endblock %}
 
