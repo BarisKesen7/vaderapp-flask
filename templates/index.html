@@ -1,34 +1,53 @@
 {% extends "base.html" %}
 
 {% block content %}
-
-    <form method="POST" action="/">
-        <label for="stad">Välja en stad:</label>
-        <select name="stad" id="stad">
-            <option value="Stockholm">Stockholm</option>
-            <option value="Göteborg">Göteborg</option>
-            <option value="Malmö">Malmö</option>
-            <option value="Umeå">Umeå</option>
-            <option value="Kiruna">Kiruna</option>
-        </select>
-        <button type="submit" style="margin-top: 15px; padding: 5px 15px;">Hämta väder</button>
-    </form>
-
-    {% if fel %}
-        <p style="color: red; font-weight: bold; margin-top: 20px;">{{ fel }}</p>
-    {% endif %}
-
-    {% if data %}
-        <div style="margin-top: 30px; padding: 20px; background-color: bisque; border-radius: 9px;">
-            <h2>Nuvarande väder i {{ stad }}</h2>
-            <p><strong>Temperaturen:</strong> {{ data.current.temperature_2m }}</p>
-            <p><strong>Hastigheten av vind:</strong> {{ data.current.wind_speed_10m }} km/h</p>
+<div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+        <h1 class="mb-4">Väderapp för Sveriges städer</h1>
+        
+        <!-- Snyggt kort (card) för sökformuläret -->
+        <div class="card shadow-sm mb-4">
+            <div class="card-body">
+                <form method="POST" action="/" class="d-flex justify-content-center align-items-center gap-3">
+                    <label for="stad" class="form-label mb-0 fw-bold">Välj en stad:</label>
+                    <select name="stad" id="stad" class="form-select w-auto">
+                        <option value="Stockholm" {% if stad == 'Stockholm' %}selected{% endif %}>Stockholm</option>
+                        <option value="Göteborg" {% if stad == 'Göteborg' %}selected{% endif %}>Göteborg</option>
+                        <option value="Malmö" {% if stad == 'Malmö' %}selected{% endif %}>Malmö</option>
+                        <option value="Umeå" {% if stad == 'Umeå' %}selected{% endif %}>Umeå</option>
+                        <option value="Kiruna" {% if stad == 'Kiruna' %}selected{% endif %}>Kiruna</option>
+                    </select>
+                    <button type="submit" class="btn btn-primary">Hämta väder</button>
+                </form>
+            </div>
         </div>
 
-        <div style="margin-top: 30px;">
-            {{ diagram | safe }}
+        <!-- Bootstrap-designat felmeddelande -->
+        {% if fel %}
+        <div class="alert alert-danger shadow-sm" role="alert">
+            {{ fel }}
         </div>
-    {% endif %}
+        {% endif %}
+
+        <!-- Visar väderdata och diagram -->
+        {% if data %}
+        <div class="card shadow-sm mb-4" style="background-color: #ffe4c4;"> <!-- Bevarar din 'bisque'-färg -->
+            <div class="card-body">
+                <h2 class="card-title h4">Nuvarande väder i {{ stad }}</h2>
+                <p class="card-text mb-1"><strong>Temperaturen:</strong> {{ data.current.temperature_2m }} °C</p>
+                <p class="card-text"><strong>Hastigheten av vind:</strong> {{ data.current.wind_speed_10m }} km/h</p>
+            </div>
+        </div>
+
+        <!-- Diagrammet i ett eget kort -->
+        <div class="card shadow-sm">
+            <div class="card-body p-0 pt-3">
+                {{ diagram | safe }}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}
 
 

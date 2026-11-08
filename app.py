@@ -8,7 +8,7 @@ app = Flask(__name__)
 stad_koordinater = {
     "Stockholm": (59.33, 18.06),
     "Göteborg": (57.71, 11.97),
-    "Malmö": (55.60, 13,00),
+    "Malmö": (55.60, 13.00),
     "Umeå": (63.83, 20.26),
     "Kiruna": (67.85, 20.22)
 }
